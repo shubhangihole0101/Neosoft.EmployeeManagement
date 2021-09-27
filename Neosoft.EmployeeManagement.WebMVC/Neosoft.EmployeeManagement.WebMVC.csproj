@@ -115,6 +115,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\InternetSlowdown_Day.gif" />
     <Content Include="Content\Site.css" />
+    <Content Include="DBScript\DB_Insert_Data.sql" />
+    <Content Include="DBScript\DB_Script.sql" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\App\employee.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
