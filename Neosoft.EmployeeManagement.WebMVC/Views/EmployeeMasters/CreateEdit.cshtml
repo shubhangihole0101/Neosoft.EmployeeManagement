@@ -1,0 +1,332 @@
+﻿@model Neosoft.EmployeeManagement.DAL.EFDbFirst.EmployeeMaster
+
+@{
+    ViewBag.Title = "Create";
+}
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+@*@using (Html.BeginForm("Create", "EmployeeMasters", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {*@
+<form id="myForm" enctype="multipart/form-data" method="post">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Row_Id)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row" style="height: 6px">
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row" style="height: 6px">
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row" style="height: 6px">
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.PanNumber, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.PanNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PanNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.PassportNumber, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.PassportNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PassportNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.DateOfJoinee, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.DateOfJoinee, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.DateOfJoinee, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.CountryId, "CountryId", htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.DropDownList("CountryId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.StateId, "StateId", htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.DropDownList("StateId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.CityId, "CityId", htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.ProfileImage, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @*@Html.EditorFor(model => model.ProfileImage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProfileImage, "", new { @class = "text-danger" })*@
+                @*@Html.Editor("file", new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
+            </div>
+        </div>
+        <div class="row" style="height: 6px">
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @*<div class="col-md-10">
+                        Male
+                        @Html.RadioButtonFor(model => model.Gender, "1")
+                        Female
+                        @Html.RadioButtonFor(model => model.Gender, "2")
+                    </div>*@
+            </div>
+        </div>
+        <div class="row" style="height: 6px">
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-8">
+                @Html.EditorFor(model => model.IsActive)
+                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="height: 6px">
+        </div>
+
+
+        @Html.ValidationSummary(false, "", new { @style = "color: red" })
+
+        <div class="row">
+            <div class="col-4">
+
+            </div>
+            <div class="col-8">
+                <a href="#" id="btnSubmit" class="btn btn-success btn-block">
+                    @if (Model.Row_Id > 0)
+                    {<span>Update</span> }
+                    else
+                    {<span>Save</span>}
+                </a>
+
+                @*<div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>*@
+
+                <a href="#" id="btnCancel" data-dismiss="modal" class="btn btn-success btn-block">
+                    <span>Cancel</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
+    @*}*@
+</form>
+<div style="display:none;" id="loaderDiv" class="modalLoder">
+    <div class="centerLoader">
+        <img src="~/Content/InternetSlowdown_Day.gif" width="150" />
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnCancel").click(function () {
+            $("#myModal").modal("hide");
+            window.location.href = "/EmployeeMasters/Index";
+        });
+        $("#btnSubmit").click(function () {
+            debugger;
+            if (!$("#myForm").valid()) {
+
+            }
+            else {
+
+
+                var myformdata =  $("#myForm").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/EmployeeMasters/Create",
+                    data: myformdata,
+                    success: function (response) {
+                        var $summaryUl = $(".validation-summary-valid").find("ul");
+                        $summaryUl.empty();
+
+                        if (response.status === 'validationerror') {
+                            $.each(response.errors,
+                                function (a, b) {
+                                    $summaryUl.append($("<li>").text(b));
+                                });
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                })
+            }
+        })
+
+        $("#CountryId").change(function () {
+            $("#loaderDiv").show();
+            $("#StateId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetStates")', // we are calling json method
+                dataType: 'json',
+                data: { id: $("#CountryId").val() },
+                // here we are get value of selected country and passing same value
+                success: function (states) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(states, function (i, state) {
+                        $("#StateId").append('<option value="' + state.Value + '">' +
+                            state.Text + '</option>');
+                        // here we are adding option for States
+                    });
+                    $("#loaderDiv").hide();
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+
+        $("#StateId").change(function () {
+            $("#loaderDiv").show();
+            $("#CityId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCities")', // we are calling json method
+                dataType: 'json',
+                data: { id: $("#StateId").val() },
+                // here we are get value of selected country and passing same value
+                success: function (states) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(states, function (i, state) {
+                        $("#CityId").append('<option value="' + state.Value + '">' +
+                            state.Text + '</option>');
+                        // here we are adding option for States
+                    });
+                    $("#loaderDiv").hide();
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+    
+</script>

@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NeoSoft_ShubhangiHoleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Row_Id" />
+          </Key>
+          <Property Name="Row_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Row_Id" />
+          </Key>
+          <Property Name="Row_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="Row_Id" />
+          </Key>
+          <Property Name="Row_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeCode" Type="varchar" MaxLength="8" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PanNumber" Type="varchar" MaxLength="12" />
+          <Property Name="PassportNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProfileImage" Type="varchar" MaxLength="100" />
+          <Property Name="Gender" Type="tinyint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="DateOfJoinee" Type="date" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Row_Id" />
+          </Key>
+          <Property Name="Row_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__City__StateId__48CFD27E">
+          <End Role="State" Type="Self.State" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeM__CityI__5165187F">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="EmployeeMaster" Type="Self.EmployeeMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="EmployeeMaster">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeM__Count__4F7CD00D">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="EmployeeMaster" Type="Self.EmployeeMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="EmployeeMaster">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeM__State__5070F446">
+          <End Role="State" Type="Self.State" Multiplicity="1" />
+          <End Role="EmployeeMaster" Type="Self.EmployeeMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="EmployeeMaster">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__State__CountryId__45F365D3">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="stp_Emp_DeleteEmployeeMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Row_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="stp_Emp_GetAllCity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="stp_Emp_GetAllCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="stp_Emp_GetAllEmployeeMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="stp_Emp_GetAllState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="stp_Emp_InsertEmployeeMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CountryId" Type="int" Mode="In" />
+          <Parameter Name="StateId" Type="int" Mode="In" />
+          <Parameter Name="CityId" Type="int" Mode="In" />
+          <Parameter Name="EmailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="MobileNumber" Type="varchar" Mode="In" />
+          <Parameter Name="PanNumber" Type="varchar" Mode="In" />
+          <Parameter Name="PassportNumber" Type="varchar" Mode="In" />
+          <Parameter Name="ProfileImage" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="bit" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="dateOfBirth" Type="date" Mode="In" />
+          <Parameter Name="dateOfJoinee" Type="date" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="stp_Emp_UpdateEmployeeMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Row_Id" Type="int" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CountryId" Type="int" Mode="In" />
+          <Parameter Name="StateId" Type="int" Mode="In" />
+          <Parameter Name="CityId" Type="int" Mode="In" />
+          <Parameter Name="EmailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="MobileNumber" Type="varchar" Mode="In" />
+          <Parameter Name="PanNumber" Type="varchar" Mode="In" />
+          <Parameter Name="PassportNumber" Type="varchar" Mode="In" />
+          <Parameter Name="ProfileImage" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="bit" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="dateOfBirth" Type="date" Mode="In" />
+          <Parameter Name="dateOfJoinee" Type="date" Mode="In" />
+          <Parameter Name="UpdateDate" Type="datetime" Mode="In" />
+        </Function>
+        <EntityContainer Name="NeoSoft_ShubhangiHoleModelStoreContainer">
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeMaster" EntityType="Self.EmployeeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__City__StateId__48CFD27E" Association="Self.FK__City__StateId__48CFD27E">
+            <End Role="State" EntitySet="State" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeM__CityI__5165187F" Association="Self.FK__EmployeeM__CityI__5165187F">
+            <End Role="City" EntitySet="City" />
+            <End Role="EmployeeMaster" EntitySet="EmployeeMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeM__Count__4F7CD00D" Association="Self.FK__EmployeeM__Count__4F7CD00D">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="EmployeeMaster" EntitySet="EmployeeMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeM__State__5070F446" Association="Self.FK__EmployeeM__State__5070F446">
+            <End Role="State" EntitySet="State" />
+            <End Role="EmployeeMaster" EntitySet="EmployeeMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__State__CountryId__45F365D3" Association="Self.FK__State__CountryId__45F365D3">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NeoSoft_ShubhangiHoleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Row_Id" />
+          </Key>
+          <Property Name="Row_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="State" Relationship="Self.FK__City__StateId__48CFD27E" FromRole="City" ToRole="State" />
+          <NavigationProperty Name="EmployeeMasters" Relationship="Self.FK__EmployeeM__CityI__5165187F" FromRole="City" ToRole="EmployeeMaster" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Row_Id" />
+          </Key>
+          <Property Name="Row_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="EmployeeMasters" Relationship="Self.FK__EmployeeM__Count__4F7CD00D" FromRole="Country" ToRole="EmployeeMaster" />
+          <NavigationProperty Name="States" Relationship="Self.FK__State__CountryId__45F365D3" FromRole="Country" ToRole="State" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="Row_Id" />
+          </Key>
+          <Property Name="Row_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PanNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProfileImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="Byte" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateOfJoinee" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="City" Relationship="Self.FK__EmployeeM__CityI__5165187F" FromRole="EmployeeMaster" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__EmployeeM__Count__4F7CD00D" FromRole="EmployeeMaster" ToRole="Country" />
+          <NavigationProperty Name="State" Relationship="Self.FK__EmployeeM__State__5070F446" FromRole="EmployeeMaster" ToRole="State" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Row_Id" />
+          </Key>
+          <Property Name="Row_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK__City__StateId__48CFD27E" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__State__CountryId__45F365D3" FromRole="State" ToRole="Country" />
+          <NavigationProperty Name="EmployeeMasters" Relationship="Self.FK__EmployeeM__State__5070F446" FromRole="State" ToRole="EmployeeMaster" />
+        </EntityType>
+        <Association Name="FK__City__StateId__48CFD27E">
+          <End Role="State" Type="Self.State" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeM__CityI__5165187F">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="EmployeeMaster" Type="Self.EmployeeMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="EmployeeMaster">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeM__Count__4F7CD00D">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="EmployeeMaster" Type="Self.EmployeeMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="EmployeeMaster">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__State__CountryId__45F365D3">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeM__State__5070F446">
+          <End Role="State" Type="Self.State" Multiplicity="1" />
+          <End Role="EmployeeMaster" Type="Self.EmployeeMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Row_Id" />
+            </Principal>
+            <Dependent Role="EmployeeMaster">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NeoSoft_ShubhangiHoleEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="EmployeeMasters" EntityType="Self.EmployeeMaster" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <AssociationSet Name="FK__City__StateId__48CFD27E" Association="Self.FK__City__StateId__48CFD27E">
+            <End Role="State" EntitySet="States" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeM__CityI__5165187F" Association="Self.FK__EmployeeM__CityI__5165187F">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="EmployeeMaster" EntitySet="EmployeeMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeM__Count__4F7CD00D" Association="Self.FK__EmployeeM__Count__4F7CD00D">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="EmployeeMaster" EntitySet="EmployeeMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__State__CountryId__45F365D3" Association="Self.FK__State__CountryId__45F365D3">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeM__State__5070F446" Association="Self.FK__EmployeeM__State__5070F446">
+            <End Role="State" EntitySet="States" />
+            <End Role="EmployeeMaster" EntitySet="EmployeeMasters" />
+          </AssociationSet>
+          <FunctionImport Name="stp_Emp_DeleteEmployeeMaster">
+            <Parameter Name="Row_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_Emp_GetAllCity" ReturnType="Collection(NeoSoft_ShubhangiHoleModel.stp_Emp_GetAllCity_Result)" />
+          <FunctionImport Name="stp_Emp_GetAllCountry" ReturnType="Collection(NeoSoft_ShubhangiHoleModel.stp_Emp_GetAllCountry_Result)" />
+          <FunctionImport Name="stp_Emp_GetAllEmployeeMaster" ReturnType="Collection(NeoSoft_ShubhangiHoleModel.stp_Emp_GetAllEmployeeMaster_Result)" />
+          <FunctionImport Name="stp_Emp_GetAllState" ReturnType="Collection(NeoSoft_ShubhangiHoleModel.stp_Emp_GetAllState_Result)" />
+          <FunctionImport Name="stp_Emp_InsertEmployeeMaster" ReturnType="Collection(Decimal)">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="CountryId" Mode="In" Type="Int32" />
+            <Parameter Name="StateId" Mode="In" Type="Int32" />
+            <Parameter Name="CityId" Mode="In" Type="Int32" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="MobileNumber" Mode="In" Type="String" />
+            <Parameter Name="PanNumber" Mode="In" Type="String" />
+            <Parameter Name="PassportNumber" Mode="In" Type="String" />
+            <Parameter Name="ProfileImage" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Boolean" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="dateOfBirth" Mode="In" Type="DateTime" />
+            <Parameter Name="dateOfJoinee" Mode="In" Type="DateTime" />
+            <Parameter Name="CreatedDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="stp_Emp_UpdateEmployeeMaster">
+            <Parameter Name="Row_Id" Mode="In" Type="Int32" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="CountryId" Mode="In" Type="Int32" />
+            <Parameter Name="StateId" Mode="In" Type="Int32" />
+            <Parameter Name="CityId" Mode="In" Type="Int32" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="MobileNumber" Mode="In" Type="String" />
+            <Parameter Name="PanNumber" Mode="In" Type="String" />
+            <Parameter Name="PassportNumber" Mode="In" Type="String" />
+            <Parameter Name="ProfileImage" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Boolean" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="dateOfBirth" Mode="In" Type="DateTime" />
+            <Parameter Name="dateOfJoinee" Mode="In" Type="DateTime" />
+            <Parameter Name="UpdateDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="stp_Emp_GetAllCity_Result">
+          <Property Type="Int32" Name="Row_Id" Nullable="false" />
+          <Property Type="String" Name="CityName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="StateId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="stp_Emp_GetAllCountry_Result">
+          <Property Type="Int32" Name="Row_Id" Nullable="false" />
+          <Property Type="String" Name="CountryName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="stp_Emp_GetAllEmployeeMaster_Result">
+          <Property Type="Int32" Name="Row_Id" Nullable="false" />
+          <Property Type="String" Name="EmployeeCode" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CountryId" Nullable="false" />
+          <Property Type="Int32" Name="StateId" Nullable="false" />
+          <Property Type="Int32" Name="CityId" Nullable="false" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="PanNumber" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="PassportNumber" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="ProfileImage" Nullable="true" MaxLength="100" />
+          <Property Type="Byte" Name="Gender" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="false" />
+          <Property Type="DateTime" Name="DateOfJoinee" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <Property Type="DateTime" Name="DeletedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="stp_Emp_GetAllState_Result">
+          <Property Type="Int32" Name="Row_Id" Nullable="false" />
+          <Property Type="String" Name="StateName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CountryId" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NeoSoft_ShubhangiHoleModelStoreContainer" CdmEntityContainer="NeoSoft_ShubhangiHoleEntities">
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="NeoSoft_ShubhangiHoleModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Row_Id" ColumnName="Row_Id" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="NeoSoft_ShubhangiHoleModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Row_Id" ColumnName="Row_Id" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeMasters">
+            <EntityTypeMapping TypeName="NeoSoft_ShubhangiHoleModel.EmployeeMaster">
+              <MappingFragment StoreEntitySet="EmployeeMaster">
+                <ScalarProperty Name="Row_Id" ColumnName="Row_Id" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="PanNumber" ColumnName="PanNumber" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="DateOfJoinee" ColumnName="DateOfJoinee" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="NeoSoft_ShubhangiHoleModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="Row_Id" ColumnName="Row_Id" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="stp_Emp_DeleteEmployeeMaster" FunctionName="NeoSoft_ShubhangiHoleModel.Store.stp_Emp_DeleteEmployeeMaster" />
+          <FunctionImportMapping FunctionImportName="stp_Emp_GetAllCity" FunctionName="NeoSoft_ShubhangiHoleModel.Store.stp_Emp_GetAllCity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NeoSoft_ShubhangiHoleModel.stp_Emp_GetAllCity_Result">
+                <ScalarProperty Name="Row_Id" ColumnName="Row_Id" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_Emp_GetAllCountry" FunctionName="NeoSoft_ShubhangiHoleModel.Store.stp_Emp_GetAllCountry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NeoSoft_ShubhangiHoleModel.stp_Emp_GetAllCountry_Result">
+                <ScalarProperty Name="Row_Id" ColumnName="Row_Id" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_Emp_GetAllEmployeeMaster" FunctionName="NeoSoft_ShubhangiHoleModel.Store.stp_Emp_GetAllEmployeeMaster">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NeoSoft_ShubhangiHoleModel.stp_Emp_GetAllEmployeeMaster_Result">
+                <ScalarProperty Name="Row_Id" ColumnName="Row_Id" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="PanNumber" ColumnName="PanNumber" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="DateOfJoinee" ColumnName="DateOfJoinee" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_Emp_GetAllState" FunctionName="NeoSoft_ShubhangiHoleModel.Store.stp_Emp_GetAllState">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NeoSoft_ShubhangiHoleModel.stp_Emp_GetAllState_Result">
+                <ScalarProperty Name="Row_Id" ColumnName="Row_Id" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_Emp_InsertEmployeeMaster" FunctionName="NeoSoft_ShubhangiHoleModel.Store.stp_Emp_InsertEmployeeMaster" />
+          <FunctionImportMapping FunctionImportName="stp_Emp_UpdateEmployeeMaster" FunctionName="NeoSoft_ShubhangiHoleModel.Store.stp_Emp_UpdateEmployeeMaster" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

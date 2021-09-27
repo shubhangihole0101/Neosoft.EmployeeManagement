@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Employee Listing Form</h2>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<div style="width:80%; margin:0 auto;">
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>PAN Num</th>
+                <th>Passport Num</th>
+                <th>Gender</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    </table>
+    <a href="#" class="btn btn-primary" onclick="AddEditEmployee(0)">New</a>
+</div>
+
+
+
+<div class="modal fade" id="myModal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title">Create Employee</h3>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv1">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var AddEditEmployee = function (employeeId) {
+        var url = "/EmployeeMasters/AddEditEmployee?EmployeeId=" + employeeId;
+        $("#myModalBodyDiv1").load(url, function () {
+            
+            $("#myModal1").modal('show', { backdrop: false, keyboard: false });
+        })
+    }
+
+    var DeleteEmployee = function (employeeId) {
+        var isConfirm = confirm("Do you want to delete employee");
+
+        if (isConfirm) {
+            $.ajax({
+                type: "POST",
+                url: "/EmployeeMasters/Delete",
+                data: { id: employeeId },
+                success: function () {
+                }
+            })
+        }
+        else {
+            alert('No');
+        }
+    }
+
+</script>
+
+@* Load datatable css *@
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section Scripts{
+    @* Load DataTable js here *@
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myTable").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": false, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "ajax": {
+                    "url": "/EmployeeMasters/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "EmailAddress", "name": "EmailAddress", "autoWidth": true },
+                    { "data": "CountryName", "name": "CountryName", "autoWidth": true },
+                    { "data": "StateName", "name": "StateName", "autoWidth": true },
+                    { "data": "CityName", "name": "CityName", "autoWidth": true },
+                    { "data": "PanNumber", "name": "PanNumber", "autoWidth": true },
+                    { "data": "PassportNumber", "name": "PassportNumber", "autoWidth": true },
+                    { "data": "Gender", "name": "Gender", "autoWidth": true },
+                    { "data": "IsActive", "name": "IsActive", "autoWidth": true },
+                    {
+                        "data": "Row_Id", "width": "50px", "render": function (data) {
+                            return '<a class="popup" onclick="AddEditEmployee(' + data + ')">Edit</a><br/><a class="popup" onclick = "DeleteEmployee(' + data + ')">Delete</a>';
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}
